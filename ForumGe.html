@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Sequence Display</title>
+</head>
+<body>
+    <p>Click anywhere to display the sequence:</p>
+    <button id="sequenceButton">Set Sequence</button>
+    <select id="orderSelect">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+    <button id="displayButton">Display Sequence</button>
+    <p id="displaySequence"></p>
+
+    <script>
+        let numberSequence = [];
+
+        document.getElementById("sequenceButton").addEventListener("click", function() {
+            // Prompt the user to set a sequence of numbers
+            const userInput = prompt("Enter a sequence of numbers separated by spaces:");
+            
+            // Convert the user input to an array of numbers
+            numberSequence = userInput.split(' ').map(num => parseInt(num.trim()));
+        });
+
+        document.getElementById("displayButton").addEventListener("click", function() {
+            const selectedOrder = document.getElementById("orderSelect").value;
+
+            if (numberSequence.length > 0) {
+                // Copy the sequence before sorting, so the original order isn't lost
+                const sortedSequence = [...numberSequence];
+
+                // Sort the sequence based on the selected order
+                if (selectedOrder === "asc") {
+                    sortedSequence.sort((a, b) => a - b);
+                } else if (selectedOrder === "desc") {
+                    sortedSequence.sort((a, b) => b - a);
+                }
+
+                // Display the sorted sequence
+                document.getElementById("displaySequence").innerText = "Sequence: " + sortedSequence.join(' ');
+            } else {
+                // If the sequence is not set, display an error message
+                document.getElementById("displaySequence").innerText = "Please set a sequence first!";
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
